@@ -67,7 +67,7 @@ Here is our RDoc Document, It's well format to help you find more detail about m
 
 Here are some more guides for help you. Welcome to advice.
 
-+ [Getting Started](wiki/get_started.md)
++ [Getting Started](dev/MtsFileParser/local_gems/qcloud-cos/wiki/get_started.md)
 
 
 ## Test

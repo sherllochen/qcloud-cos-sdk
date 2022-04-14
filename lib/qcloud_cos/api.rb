@@ -27,7 +27,6 @@ module QcloudCos
 
       url = generate_rest_url(bucket, path)
       sign = authorization.sign(bucket)
-
       result = http.get(url, query: query, headers: { 'Authorization' => sign }).parsed_response
       QcloudCos::List.new(result['data'])
     end

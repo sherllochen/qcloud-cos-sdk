@@ -30,6 +30,7 @@ module QcloudCos
     def sign_more(bucket, expired = EXPIRED_SECONDS)
       sign_base(bucket, nil, current_time + expired)
     end
+
     alias_method :sign, :sign_more
 
     private
@@ -37,7 +38,7 @@ module QcloudCos
     def sign_base(bucket, fileid, expired)
       fileid = "/#{app_id}#{fileid}" if fileid
 
-      src_str = "a=#{app_id}&b=#{bucket}&k=#{secret_id}&e=#{expired}&t=#{current_time}&r=#{rdm}&f=#{fileid}"
+      src_str = "a=#{app_id}&b=#{bucket.gsub('-' + app_id, '')}&k=#{secret_id}&e=#{expired}&t=#{current_time}&r=#{rdm}&f=#{fileid}"
 
       Base64.encode64("#{OpenSSL::HMAC.digest('sha1', secret_key, src_str)}#{src_str}").delete("\n").strip
     end
@@ -59,7 +60,7 @@ module QcloudCos
     end
 
     def rdm
-      rand(10**9)
+      rand(10 ** 9)
     end
   end
 end

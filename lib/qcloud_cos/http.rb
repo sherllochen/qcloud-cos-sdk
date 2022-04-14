@@ -37,7 +37,7 @@ module QcloudCos
     end
 
     def wrap(response)
-      if response.code == 200 && response.parsed_response['code'] == 0
+      if response.code == 200
         response
       else
         fail RequestError, response
@@ -69,7 +69,7 @@ module QcloudCos
     def default_headers
       {
         'User-Agent' => user_agent,
-        'Host' => 'web.file.myqcloud.com'
+        'Host' => config.endpoint
       }
     end
 

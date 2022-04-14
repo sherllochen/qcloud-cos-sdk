@@ -50,8 +50,8 @@ module QcloudCos
       path.start_with?('/') ? path : "/#{path}"
     end
 
-    def generate_rest_url(bucket, path)
-      "#{config.endpoint}#{config.app_id}/#{bucket}#{path}"
+    def generate_rest_url(bucket, path = nil)
+      "https://#{config.endpoint}/#{path ? '' : path + '/'}"
     end
 
     def file_validates(path, path_validate)

@@ -7,10 +7,17 @@ module QcloudCos
     attr_reader :message
     attr_reader :origin_response
 
+    # Error example:
+    # {"Error"=>
+    #   {"Code"=>"SignatureDoesNotMatch",
+    #    "Message"=>"The Signature you specified is invalid.",
+    #    "Resource"=>"99yee-test-1253434451.cos.ap-chengdu.myqcloud.com",
+    #    "RequestId"=>"NjI1ODE4OGZfNzc5ZTU4NjRfOTA3MF80MmE1NzAw",
+    #    "TraceId"=>"OGVmYzZiMmQzYjA2OWNhODk0NTRkMTBiOWVmMDAxODc0OWRkZjk0ZDM1NmI1M2E2MTRlY2MzZDhmNmI5MWI1OTBjYzE2MjAxN2M1MzJiOTdkZjMxMDVlYTZjN2FiMmI0ZDJlNTdmMDFmMGJhYzkxMzI2NjU4ZjM3NGRhYTNkNDQ="}}
     def initialize(response)
-      if response.parsed_response.key?('code')
-        @code = response.parsed_response['code']
-        @message = response.parsed_response['message']
+      if response.parsed_response.key?('Error')
+        @code = response.parsed_response['Error']['Code']
+        @message = response.parsed_response['Error']['Message']
       end
       @origin_response = response
       super("API ERROR Code=#{@code}, Message=#{@message}")
