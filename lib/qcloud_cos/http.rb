@@ -22,6 +22,14 @@ module QcloudCos
       request('POST', url, options)
     end
 
+    def put(url, options = {})
+      request('PUT', url, options)
+    end
+
+    def head(url, options = {})
+      request('HEAD', url, options)
+    end
+
     private
 
     def request(verb, url, options = {})
@@ -32,7 +40,6 @@ module QcloudCos
       append_headers!(headers, verb, body, options)
       options = { headers: headers, query: query, body: body }
       append_options!(options, url)
-
       wrap(self.class.__send__(verb.downcase, url, options))
     end
 

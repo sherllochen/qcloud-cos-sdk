@@ -51,7 +51,7 @@ module QcloudCos
     end
 
     def generate_rest_url(bucket, path = nil)
-      "https://#{config.endpoint}/#{path ? '' : path + '/'}"
+      "https://#{config.endpoint}/#{path}"
     end
 
     def file_validates(path, path_validate)

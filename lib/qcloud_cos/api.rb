@@ -2,9 +2,11 @@
 require 'qcloud_cos/utils'
 require 'qcloud_cos/multipart'
 require 'qcloud_cos/model/list'
+require 'qcloud_cos/api/object'
 
 module QcloudCos
   module Api
+    include Object
     # 列出文件或者目录
     #
     # @param path [String] 指定目标路径, 以 / 结尾, 则列出该目录下文件或者文件夹，不以 / 结尾，就搜索该前缀的文件或者文件夹
@@ -28,7 +30,7 @@ module QcloudCos
       url = generate_rest_url(bucket, path)
       sign = authorization.sign(bucket)
       result = http.get(url, query: query, headers: { 'Authorization' => sign }).parsed_response
-      QcloudCos::List.new(result['data'])
+      QcloudCos::List.new(result)
     end
 
     # 列出所有文件
@@ -106,6 +108,7 @@ module QcloudCos
 
       http.post(url, query: query, headers: { 'Authorization' => authorization.sign(bucket) }).parsed_response
     end
+
     alias_method :create, :upload
 
     # 分片上传
